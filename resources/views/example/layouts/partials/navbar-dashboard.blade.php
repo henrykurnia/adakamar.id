@@ -1,9 +1,9 @@
-<nav class="fixed z-50 w-full bg-white border-b border-[#1B4EF5] dark:bg-gray-800 dark:border-[#3874FF]">
+<nav class="fixed z-50 w-full bg-white border-b border-[#E60000] dark:bg-gray-800 dark:border-[#FF6B6B]">
   <div class="px-3 py-3 lg:px-5 lg:pl-3">
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start">
         <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar"
-          class="p-2 text-[#5996FF] rounded cursor-pointer lg:hidden hover:text-[#1B4EF5] hover:bg-[#F5F0FF] focus:bg-[#F5F0FF] dark:focus:bg-gray-700 focus:ring-2 focus:ring-[#D4E0FF] dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+          class="p-2 text-[#FF6B6B] rounded cursor-pointer lg:hidden hover:text-[#E60000] hover:bg-[#FFF5F5] focus:bg-[#FFF5F5] dark:focus:bg-gray-700 focus:ring-2 focus:ring-[#FFD4D4] dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
           <svg id="toggleSidebarMobileHamburger" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
@@ -17,52 +17,51 @@
               clip-rule="evenodd"></path>
           </svg>
         </button>
-        <a href="{{ url('/') }}" class="flex ml-2 md:mr-24">
-          <img src="{{ asset('static/images/stockify.png')}}" class="h-8 mr-3" alt="FlowBite Logo" />
-          <span
-            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-[#1B4EF5] dark:text-[#3874FF]">Stockify</span>
-        </a>
+      <a href="#" class="flex ml-2 md:mr-24 items-center">
+        <img src="{{ asset('landingpage/home.png') }}" class="h-8 mr-3" alt="adakamar.id Logo" />
+        <span
+          class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-[#E60000] dark:text-[#FF6B6B]">adakamar.id</span>
+      </a>
 
       </div>
       <div class="flex items-center">
 
         <!-- Search mobile -->
         <button id="toggleSidebarMobileSearch" type="button"
-          class="p-2 text-[#5996FF] rounded-lg lg:hidden hover:text-[#1B4EF5] hover:bg-[#F5F0FF] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+          class="p-2 text-[#FF6B6B] rounded-lg lg:hidden hover:text-[#E60000] hover:bg-[#FFF5F5] dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
           <span class="sr-only">Search</span>
-          <!-- Search icon -->
           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
               d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
               clip-rule="evenodd"></path>
           </svg>
         </button>
+
         <!-- Notifications -->
         <button type="button" data-dropdown-toggle="notification-dropdown"
-          class="p-2 text-[#5996FF] rounded-lg hover:text-[#1B4EF5] hover:bg-[#F5F0FF] dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
+          class="p-2 text-[#FF6B6B] rounded-lg hover:text-[#E60000] hover:bg-[#FFF5F5] dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
           <span class="sr-only">View notifications</span>
-          <!-- Bell icon -->
           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
             </path>
           </svg>
         </button>
+
         <!-- Dropdown menu -->
         <div
-          class="z-20 z-50 hidden max-w-sm my-4 overflow-hidden text-base list-none bg-white divide-y divide-[#E8D5F5] rounded shadow-lg dark:divide-gray-600 dark:bg-gray-700"
+          class="z-20 z-50 hidden max-w-sm my-4 overflow-hidden text-base list-none bg-white divide-y divide-[#FFD4D4] rounded shadow-lg dark:divide-gray-600 dark:bg-gray-700"
           id="notification-dropdown">
           <div
-            class="block px-4 py-2 text-base font-medium text-center text-gray-700 bg-[#F5F0FF] dark:bg-gray-700 dark:text-gray-400">
+            class="block px-4 py-2 text-base font-medium text-center text-gray-700 bg-[#FFF5F5] dark:bg-gray-700 dark:text-gray-400">
             Notifications
           </div>
           <div>
-            <a href="#" class="flex px-4 py-3 border-b hover:bg-[#F5F0FF] dark:hover:bg-gray-600 dark:border-gray-600">
+            <a href="#" class="flex px-4 py-3 border-b hover:bg-[#FFF5F5] dark:hover:bg-gray-600 dark:border-gray-600">
               <div class="flex-shrink-0">
-                <img class="rounded-full w-11 h-11" src="{{ asset('static/images/users/bonnie-green.png')}}"
-                  alt="Jese image">
+                <img class="rounded-full w-11 h-11" src="https://i.pravatar.cc/150?img=1" alt="Jese image">
                 <div
-                  class="absolute flex items-center justify-center w-5 h-5 ml-6 -mt-5 border border-white rounded-full bg-[#1B4EF5] dark:border-gray-700">
+                  class="absolute flex items-center justify-center w-5 h-5 ml-6 -mt-5 border border-white rounded-full bg-[#E60000] dark:border-gray-700">
                   <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -78,13 +77,12 @@
                 <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400">New message from <span
                     class="font-semibold text-gray-900 dark:text-white">Bonnie Green</span>: "Hey, what's up? All set
                   for the presentation?"</div>
-                <div class="text-xs font-medium text-[#1B4EF5] dark:text-[#3874FF]">a few moments ago</div>
+                <div class="text-xs font-medium text-[#E60000] dark:text-[#FF6B6B]">a few moments ago</div>
               </div>
             </a>
-            <a href="#" class="flex px-4 py-3 border-b hover:bg-[#F5F0FF] dark:hover:bg-gray-600 dark:border-gray-600">
+            <a href="#" class="flex px-4 py-3 border-b hover:bg-[#FFF5F5] dark:hover:bg-gray-600 dark:border-gray-600">
               <div class="flex-shrink-0">
-                <img class="rounded-full w-11 h-11" src="{{ asset('static/images/users/jese-leos.png')}}"
-                  alt="Jese image">
+                <img class="rounded-full w-11 h-11" src="https://i.pravatar.cc/150?img=2" alt="Jese image">
                 <div
                   class="absolute flex items-center justify-center w-5 h-5 ml-6 -mt-5 bg-gray-900 border border-white rounded-full dark:border-gray-700">
                   <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"
@@ -99,13 +97,12 @@
                 <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"><span
                     class="font-semibold text-gray-900 dark:text-white">Jese leos</span> and <span
                     class="font-medium text-gray-900 dark:text-white">5 others</span> started following you.</div>
-                <div class="text-xs font-medium text-[#1B4EF5] dark:text-[#3874FF]">10 minutes ago</div>
+                <div class="text-xs font-medium text-[#E60000] dark:text-[#FF6B6B]">10 minutes ago</div>
               </div>
             </a>
-            <a href="#" class="flex px-4 py-3 border-b hover:bg-[#F5F0FF] dark:hover:bg-gray-600 dark:border-gray-600">
+            <a href="#" class="flex px-4 py-3 border-b hover:bg-[#FFF5F5] dark:hover:bg-gray-600 dark:border-gray-600">
               <div class="flex-shrink-0">
-                <img class="rounded-full w-11 h-11" src="{{ asset('static/images/users/joseph-mcfall.png')}}"
-                  alt="Joseph image">
+                <img class="rounded-full w-11 h-11" src="https://i.pravatar.cc/150?img=3" alt="Joseph image">
                 <div
                   class="absolute flex items-center justify-center w-5 h-5 ml-6 -mt-5 bg-red-600 border border-white rounded-full dark:border-gray-700">
                   <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"
@@ -121,13 +118,12 @@
                     class="font-semibold text-gray-900 dark:text-white">Joseph Mcfall</span> and <span
                     class="font-medium text-gray-900 dark:text-white">141 others</span> love your story. See it and view
                   more stories.</div>
-                <div class="text-xs font-medium text-[#1B4EF5] dark:text-[#3874FF]">44 minutes ago</div>
+                <div class="text-xs font-medium text-[#E60000] dark:text-[#FF6B6B]">44 minutes ago</div>
               </div>
             </a>
-            <a href="#" class="flex px-4 py-3 border-b hover:bg-[#F5F0FF] dark:hover:bg-gray-600 dark:border-gray-600">
+            <a href="#" class="flex px-4 py-3 border-b hover:bg-[#FFF5F5] dark:hover:bg-gray-600 dark:border-gray-600">
               <div class="flex-shrink-0">
-                <img class="rounded-full w-11 h-11" src="{{ asset('static/images/users/leslie-livingston.png')}}"
-                  alt="Leslie image">
+                <img class="rounded-full w-11 h-11" src="https://i.pravatar.cc/150?img=4" alt="Leslie image">
                 <div
                   class="absolute flex items-center justify-center w-5 h-5 ml-6 -mt-5 bg-green-400 border border-white rounded-full dark:border-gray-700">
                   <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"
@@ -141,15 +137,14 @@
               <div class="w-full pl-3">
                 <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"><span
                     class="font-semibold text-gray-900 dark:text-white">Leslie Livingston</span> mentioned you in a
-                  comment: <span class="font-medium text-[#1B4EF5] dark:text-[#3874FF]">@bonnie.green</span> what do you
+                  comment: <span class="font-medium text-[#E60000] dark:text-[#FF6B6B]">@bonnie.green</span> what do you
                   say?</div>
-                <div class="text-xs font-medium text-[#1B4EF5] dark:text-[#3874FF]">1 hour ago</div>
+                <div class="text-xs font-medium text-[#E60000] dark:text-[#FF6B6B]">1 hour ago</div>
               </div>
             </a>
-            <a href="#" class="flex px-4 py-3 hover:bg-[#F5F0FF] dark:hover:bg-gray-600">
+            <a href="#" class="flex px-4 py-3 hover:bg-[#FFF5F5] dark:hover:bg-gray-600">
               <div class="flex-shrink-0">
-                <img class="rounded-full w-11 h-11" src="{{ asset('static/images/users/robert-brown.png')}}"
-                  alt="Robert image">
+                <img class="rounded-full w-11 h-11" src="https://i.pravatar.cc/150?img=5" alt="Robert image">
                 <div
                   class="absolute flex items-center justify-center w-5 h-5 ml-6 -mt-5 bg-purple-500 border border-white rounded-full dark:border-gray-700">
                   <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"
@@ -164,16 +159,15 @@
                 <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"><span
                     class="font-semibold text-gray-900 dark:text-white">Robert Brown</span> posted a new video:
                   Glassmorphism - learn how to implement the new design trend.</div>
-                <div class="text-xs font-medium text-[#1B4EF5] dark:text-[#3874FF]">3 hours ago</div>
+                <div class="text-xs font-medium text-[#E60000] dark:text-[#FF6B6B]">3 hours ago</div>
               </div>
             </a>
           </div>
-
         </div>
 
-
+        <!-- Theme Toggle -->
         <button id="theme-toggle" data-tooltip-target="tooltip-toggle" type="button"
-          class="text-[#5996FF] dark:text-gray-400 hover:bg-[#F5F0FF] dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-[#D4E0FF] dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+          class="text-[#FF6B6B] dark:text-gray-400 hover:bg-[#FFF5F5] dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-[#FFD4D4] dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
           <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg">
             <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
@@ -190,68 +184,55 @@
           Toggle dark mode
           <div class="tooltip-arrow" data-popper-arrow></div>
         </div>
-        @php
-          $user = auth()->user();
-        @endphp
 
         <!-- Profile -->
         <div class="flex items-center ml-3">
           <div>
             <button type="button"
-              class="flex text-sm bg-[#1B4EF5] rounded-full focus:ring-4 focus:ring-[#D4E0FF] dark:focus:ring-gray-600"
+              class="flex text-sm bg-[#E60000] rounded-full focus:ring-4 focus:ring-[#FFD4D4] dark:focus:ring-gray-600"
               id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
 
               <span class="sr-only">Open user menu</span>
 
-              <!-- Cek apakah user memiliki foto profil -->
-              @if($user->photo)
-                <img class="w-8 h-8 rounded-full object-cover" src="{{ asset('static/images/users/' . $user->photo) }}"
-                  alt="{{ $user->name }}">
-              @else
-                <!-- Fallback ke ui-avatars.com jika tidak ada foto -->
-                <img class="w-8 h-8 rounded-full"
-                  src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=1B4EF5&color=ffffff&size=32"
-                  alt="{{ $user->name }}">
-              @endif
+              <img class="w-8 h-8 rounded-full"
+                src="https://ui-avatars.com/api/?name=Admin+Utama&background=E60000&color=ffffff&size=32"
+                alt="Admin Utama">
             </button>
           </div>
 
           <!-- Dropdown menu -->
           <div
-            class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-[#E8D5F5] rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+            class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-[#FFD4D4] rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
             id="dropdown-2">
 
             <div class="px-4 py-3">
               <p class="text-sm font-semibold text-gray-900 dark:text-white">
-                {{ $user->name }}
+                Admin Utama
               </p>
 
               <p class="text-sm text-gray-500 truncate dark:text-gray-300">
-                {{ $user->email }}
+                admin@adakamar.id
               </p>
 
-              <p class="text-xs text-[#1B4EF5] dark:text-[#3874FF] mt-1">
-                {{ $user->role }}
+              <p class="text-xs text-[#E60000] dark:text-[#FF6B6B] mt-1">
+                Super Administrator
               </p>
             </div>
 
             <ul class="py-1">
 
               <li>
-                <a href="{{ route('profile.edit') }}"
-                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-[#F5F0FF] dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">
+                <a href="#"
+                  class="block px-4 py-2 text-sm text-gray-700 hover:bg-[#FFF5F5] dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">
                   Pengaturan Akun
                 </a>
               </li>
 
               <li>
-                <form action="{{ route('logout') }}" method="POST" id="logout-form">
-                  @csrf
-                  <button type="button" id="logout-button"
-                    class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100 dark:text-red-400 dark:hover:bg-gray-600">
-                    Logout
-                  </button>
-                </form>
+                <button type="button" id="logout-button"
+                  class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100 dark:text-red-400 dark:hover:bg-gray-600">
+                  Logout
+                </button>
               </li>
 
             </ul>
@@ -262,16 +243,15 @@
   </div>
 </nav>
 
-<!-- Tambahkan SweetAlert2 CDN jika belum ada -->
+<!-- SweetAlert2 CDN -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     // ========== LOGOUT CONFIRMATION ==========
     const logoutButton = document.getElementById('logout-button');
-    const logoutForm = document.getElementById('logout-form');
 
-    if (logoutButton && logoutForm) {
+    if (logoutButton) {
       logoutButton.addEventListener('click', function (e) {
         e.preventDefault();
 
@@ -293,7 +273,7 @@
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#d33',
-          cancelButtonColor: '#1B4EF5',
+          cancelButtonColor: '#E60000',
           confirmButtonText: 'Ya, Logout!',
           cancelButtonText: 'Batal',
           reverseButtons: true,
@@ -301,7 +281,6 @@
           timerProgressBar: true
         }).then((result) => {
           if (result.isConfirmed) {
-            // Tampilkan loading
             Swal.fire({
               title: 'Logout...',
               text: 'Anda sedang keluar dari sistem',
@@ -311,8 +290,19 @@
               }
             });
 
-            // Submit form logout
-            logoutForm.submit();
+            // Simulasi logout
+            setTimeout(() => {
+              Swal.fire({
+                icon: 'success',
+                title: 'Berhasil Logout!',
+                text: 'Anda telah keluar dari sistem',
+                timer: 2000,
+                showConfirmButton: false,
+                timerProgressBar: true
+              }).then(() => {
+                window.location.href = '/login';
+              });
+            }, 1500);
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire({
               icon: 'info',

@@ -14,6 +14,6 @@ class Authenticate extends Middleware
     {
         return $request->expectsJson()
             ? null
-            : route('sign-in');
+            : route('login');
     }
 }

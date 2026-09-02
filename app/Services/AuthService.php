@@ -2,55 +2,39 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Repositories\Interfaces\AuthRepositoryInterface;
+use App\Models\User;
+use App\Repositories\AuthRepository;
+use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
-    protected AuthRepositoryInterface $authRepository;
+    protected AuthRepository $authRepository;
 
-    public function __construct(AuthRepositoryInterface $authRepository)
+    public function __construct(AuthRepository $authRepository)
     {
         $this->authRepository = $authRepository;
     }
 
-    public function login(Request $request): ?string
+    /**
+     * Memproses login berdasarkan name dan password.
+     */
+    public function login(string $name, string $password): ?User
     {
-        $credentials = $request->only('email', 'password');
+        $user = $this->authRepository->findByName($name);
 
-        if (!Auth::attempt($credentials, $request->remember)) {
+        // User tidak ditemukan
+        if (!$user) {
             return null;
         }
 
-        $request->session()->regenerate();
-
-        $role = Auth::user()->role;
-
-        switch ($role) {
-
-            case 'Admin':
-                return 'dashboard.admin';
-
-            case 'Manajer Gudang':
-                // sementara diarahkan ke dashboard yang sama
-                return 'dashboard';
-
-            case 'Staff Gudang':
-                return 'dashboard.staff';
-
-            default:
-                Auth::logout();
-                return null;
+        // Password tidak sesuai
+        if (!Hash::check($password, $user->password)) {
+            return null;
         }
-    }
 
-    public function logout(Request $request): void
-    {
-        Auth::logout();
+        // Update waktu login terakhir
+        $this->authRepository->updateLastLogin($user);
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
+        return $user;
     }
 }

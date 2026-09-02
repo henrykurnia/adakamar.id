@@ -14,23 +14,10 @@ class UserSeeder extends Seeder
 
         User::create([
             'name' => 'Administrator',
-            'email' => 'admin@stockify.com',
+            'email' => 'admin@adakamar.com',
             'password' => Hash::make('admin123'),
-            'role' => 'Admin',
-        ]);
-
-        User::create([
-            'name' => 'Staff Gudang',
-            'email' => 'staff@stockify.com',
-            'password' => Hash::make('password'),
-            'role' => 'Staff Gudang',
-        ]);
-
-        User::create([
-            'name' => 'Manajer Gudang',
-            'email' => 'manager@stockify.com',
-            'password' => Hash::make('password'),
-            'role' => 'Manajer Gudang',
+            'photo' => null,
+            'last_login' => null,
         ]);
     }
 }

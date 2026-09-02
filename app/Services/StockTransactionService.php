@@ -39,6 +39,14 @@ class StockTransactionService
     }
 
     /**
+     * Ambil stok produk
+     */
+    public function getProductStock($id)
+    {
+        return $this->repository->getProductStock($id);
+    }
+
+    /**
      * Update transaksi
      */
     public function update($id, array $data)
