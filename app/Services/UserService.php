@@ -2,55 +2,76 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Hash;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 
 class UserService
 {
-    protected UserRepositoryInterface $userRepository;
+    protected $repository;
 
-    public function __construct(UserRepositoryInterface $userRepository)
-    {
-        $this->userRepository = $userRepository;
+    public function __construct(
+        UserRepositoryInterface $repository
+    ) {
+        $this->repository = $repository;
     }
 
     /**
-     * Menampilkan semua user
-     * dengan search dan pagination.
+     * Ambil semua user
      */
     public function getAll($keyword = null)
     {
-        return $this->userRepository->getAll($keyword);
+        return $this->repository->getAll($keyword);
     }
 
     /**
-     * Cari user berdasarkan ID.
+     * Cari user berdasarkan ID
      */
     public function findById($id)
     {
-        return $this->userRepository->findById($id);
+        return $this->repository->findById($id);
     }
 
     /**
-     * Simpan user baru.
+     * Tambah user
      */
     public function create(array $data)
     {
-        return $this->userRepository->create($data);
+        $data['password'] = Hash::make($data['password']);
+
+        return $this->repository->create($data);
     }
 
     /**
-     * Update data user.
+     * Update user
      */
     public function update($id, array $data)
     {
-        return $this->userRepository->update($id, $data);
+        /*
+        |--------------------------------------------------------------------------
+        | Password
+        |--------------------------------------------------------------------------
+        | Kalau password kosong, jangan ubah password lama.
+        |--------------------------------------------------------------------------
+        */
+
+        if (!empty($data['password'])) {
+
+            $data['password'] = Hash::make($data['password']);
+
+        } else {
+
+            unset($data['password']);
+
+        }
+
+        return $this->repository->update($id, $data);
     }
 
     /**
-     * Hapus user.
+     * Hapus user
      */
     public function delete($id)
     {
-        return $this->userRepository->delete($id);
+        return $this->repository->delete($id);
     }
 }

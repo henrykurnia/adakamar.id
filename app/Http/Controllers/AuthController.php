@@ -2,72 +2,58 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Services\AuthService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    protected AuthService $authService;
+    protected $authService;
 
     public function __construct(AuthService $authService)
     {
         $this->authService = $authService;
     }
 
-    /**
-     * Menampilkan halaman login
-     */
-    public function showLogin()
+    public function index()
     {
-        if (auth()->check()) {
-
-            return match (auth()->user()->role) {
-                'Admin' => redirect()->route('dashboard.admin'),
-                'Staff Gudang' => redirect()->route('dashboard.staff'),
-                'Manajer Gudang' => redirect()->route('dashboard'),
-                default => redirect()->route('dashboard'),
-            };
-        }
-
-        return view('example.content.authentication.sign-in', [
-            'title' => 'Login | Stockify',
-        ]);
+        return view('example.content.authentication.login');
     }
 
-    /**
-     * Proses Login
-     */
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'username' => 'required|string',
             'password' => 'required',
         ]);
 
-        $route = $this->authService->login($request);
+        $user = $this->authService->login(
+            $request->username,
+            $request->password
+        );
 
-        if ($route) {
-            return redirect()
-                ->route($route)
-                ->with('success', 'Login berhasil.');
+        if (!$user) {
+            return back()
+                ->withErrors([
+                    'email' => 'Email atau password salah.'
+                ])
+                ->withInput();
         }
 
-        return back()
-            ->withErrors([
-                'email' => 'Email atau password salah.',
-            ])
-            ->withInput();
+        Auth::login($user);
+
+        $request->session()->regenerate();
+
+        return redirect()->route('dashboard');
     }
 
-    /**
-     * Logout
-     */
     public function logout(Request $request)
     {
-        $this->authService->logout($request);
+        Auth::logout();
 
-        return redirect()
-            ->route('sign-in')
-            ->with('success', 'Berhasil logout.');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 }

@@ -1,371 +1,296 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\GaleriesController;
+use App\Http\Middleware\PreventBackHistory;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductadmController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\AkomodasiController;
+use App\Http\Controllers\ArticleCategoryController;
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FasilitasController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\RuleController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\StockTransactionController;
-use App\Http\Controllers\SupplierMController;
-use App\Http\Controllers\StockConfirmationController;
-use App\Http\Controllers\StockOpnameController;
-use App\Http\Controllers\ManagerReportController;
-use App\Http\Controllers\ProfileManagerController;
-use App\Http\Controllers\ProfileStaffController;
-use App\Http\Controllers\StaffDashboardController;
-use App\Http\Controllers\StockHistoryController;
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\ProfileAdminController;
-use App\Http\Controllers\AdminActivityReportController;
 
-
-
+// Halaman utama
 Route::get('/', function () {
-    return redirect()->route('sign-in');
+    return redirect()->route('login');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Guest Routes
-|--------------------------------------------------------------------------
-*/
+// Login
+Route::middleware(['guest', PreventBackHistory::class])->group(function () {
 
-Route::middleware(['guest', 'prevent-back-history'])->group(function () {
-
-    Route::get('/sign-in', [AuthController::class, 'showLogin'])
-        ->name('sign-in');
+    Route::get('/login', [AuthController::class, 'index'])
+        ->name('login');
 
     Route::post('/login', [AuthController::class, 'login'])
-        ->name('login');
+        ->name('login.post');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Auth Routes (Semua User Login)
-|--------------------------------------------------------------------------
-*/
+// Logout
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');
 
-Route::middleware(['auth', 'prevent-back-history'])->group(function () {
-
-    // Logout
-    Route::post('/logout', [AuthController::class, 'logout'])
-        ->name('logout');
-});
-
-/*
-|--------------------------------------------------------------------------
-| Manajer Gudang
-|--------------------------------------------------------------------------
-*/
-
-
-Route::middleware(['auth', 'role:Manajer Gudang', 'prevent-back-history'])->group(function () {
+Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
-            ->name('dashboard');
+        ->name('dashboard');
 
-    Route::get('/profile', [ProfileManagerController::class, 'edit'])
-        ->name('profile.edit');
-
-    Route::put('/profile', [ProfileManagerController::class, 'update'])
-        ->name('profile.update');
-
-
-
-    // Produk (Khusus Manager)
-    Route::get('/products', [ProductController::class, 'index'])
-        ->name('products.index');
-
-    Route::get('/products/create', [ProductController::class, 'create'])
-        ->name('products.create');
-
-    Route::post('/products', [ProductController::class, 'store'])
-        ->name('products.store');
-
-    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])
-        ->name('products.edit');
-
-    Route::put('/products/{id}', [ProductController::class, 'update'])
-        ->name('products.update');
-
-    Route::delete('/products/{id}', [ProductController::class, 'destroy'])
-        ->name('products.destroy');
-
-    Route::get('/suppliers', [SupplierMController::class, 'index'])
-        ->name('suppliers.index');
-
-    Route::get('/stock-transactions', [StockTransactionController::class, 'index'])
-        ->name('stock-transactions.index');
-
-    Route::get('/stock-transactions/create', [StockTransactionController::class, 'create'])
-        ->name('stock-transactions.create');
-
-    Route::post('/stock-transactions', [StockTransactionController::class, 'store'])
-        ->name('stock-transactions.store');
-
-    Route::get('/stock-transactions/{id}/edit', [StockTransactionController::class, 'edit'])
-        ->name('stock-transactions.edit');
-
-    Route::put('/stock-transactions/{id}', [StockTransactionController::class, 'update'])
-        ->name('stock-transactions.update');
-
-    Route::delete('/stock-transactions/{id}', [StockTransactionController::class, 'destroy'])
-        ->name('stock-transactions.destroy');
-
-    Route::get('/manager/stock-opnames', [StockOpnameController::class, 'index'])
-        ->name('stock-opnames.index');
-
-    Route::get('/manager/stock-opnames/create', [StockOpnameController::class, 'create'])
-        ->name('stock-opnames.create');
-
-    Route::post('/manager/stock-opnames', [StockOpnameController::class, 'store'])
-        ->name('stock-opnames.store');
-
-    Route::get('/manager/stock-opnames/{id}/edit', [StockOpnameController::class, 'edit'])
-        ->name('stock-opnames.edit');
-
-    Route::put('/manager/stock-opnames/{id}', [StockOpnameController::class, 'update'])
-        ->name('stock-opnames.update');
-
-    Route::delete('/manager/stock-opnames/{id}', [StockOpnameController::class, 'destroy'])
-        ->name('stock-opnames.destroy');
-
-    Route::get(
-        '/reports/stock',[ManagerReportController::class, 'stockReport'])
-    ->name('reports.stock');
-
-    Route::get('/reports/stock-in',[ManagerReportController::class, 'stockInReport'])
-    ->name('reports.stock-in');
-
-    Route::get('/reports/stock-out',[ManagerReportController::class, 'stockOutReport'])
-    ->name('reports.stock-out');
-
-    Route::get('/reports/stock-opname',[ManagerReportController::class, 'stockOpnameReport'])
-    ->name('reports.stock-opname');
-
-    // Laporan Stok Barang
-    Route::get('/reports/stock/export', [ManagerReportController::class, 'exportStockReport'])
-        ->name('reports.stock.export');
-
-    // Barang Masuk
-    Route::get('/reports/stock-in/export', [ManagerReportController::class, 'exportStockInReport'])
-        ->name('reports.stock-in.export');
-
-    // Barang Keluar
-    Route::get('/reports/stock-out/export', [ManagerReportController::class, 'exportStockOutReport'])
-        ->name('reports.stock-out.export');
-
-    // Stock Opname
-    Route::get('/reports/stock-opname/export', [ManagerReportController::class, 'exportStockOpnameReport'])
-        ->name('reports.stock-opname.export');
-
-});
 
 /*
 |--------------------------------------------------------------------------
-| Admin Gudang
+| Akomodasi
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth', 'role:Admin', 'prevent-back-history'])
-    ->prefix('admin')
-    ->group(function () {
 
-        Route::get('/dashboard/admin', [AdminDashboardController::class, 'index'])
-            ->name('dashboard.admin');
+// GET - tampilkan semua akomodasi
+Route::get('/akomodasi', [AkomodasiController::class, 'index'])
+    ->name('akomodasi.index');
 
-        Route::get('/profile/admin', [ProfileAdminController::class, 'edit'])
-            ->name('admin.profile.edit');
+// GET - form tambah
+Route::get('/akomodasi/create', [AkomodasiController::class, 'create'])
+    ->name('akomodasi.create');
 
-        Route::put('/profile/admin', [ProfileAdminController::class, 'update'])
-            ->name('admin.profile.update');
+// POST - simpan data
+Route::post('/akomodasi', [AkomodasiController::class, 'store'])
+    ->name('akomodasi.store');
 
-        Route::get('/products', [ProductadmController::class, 'index'])
-            ->name('admin.products.index');
+// GET - detail
+Route::get('/akomodasi/{akomodasi}', [AkomodasiController::class, 'show'])
+    ->name('akomodasi.show');
 
-        Route::get('/products/create', [ProductadmController::class, 'create'])
-            ->name('admin.products.create');
+// GET - form edit
+Route::get('/akomodasi/{akomodasi}/edit', [AkomodasiController::class, 'edit'])
+    ->name('akomodasi.edit');
 
-        Route::post('/products', [ProductadmController::class, 'store'])
-            ->name('admin.products.store');
+// PUT - update data
+Route::put('/akomodasi/{akomodasi}', [AkomodasiController::class, 'update'])
+    ->name('akomodasi.update');
 
-        Route::get('/products/{id}/edit', [ProductadmController::class, 'edit'])
-            ->name('admin.products.edit');
+// DELETE - hapus data
+Route::delete('/akomodasi/{akomodasi}', [AkomodasiController::class, 'destroy'])
+    ->name('akomodasi.destroy');
 
-        Route::put('/products/{id}', [ProductadmController::class, 'update'])
-            ->name('admin.products.update');
-
-        Route::delete('/products/{id}', [ProductadmController::class, 'destroy'])
-            ->name('admin.products.destroy');
-
-        Route::get('/admin/products/export', [ProductadmController::class, 'export'])
-            ->name('admin.products.export');
-
-        Route::post('/admin/products/import', [ProductadmController::class, 'import'])
-            ->name('admin.products.import');
-
-        Route::get('/categories', [CategoryController::class, 'index'])
-            ->name('admin.categories.index');
-
-        Route::get('/categories/create', [CategoryController::class, 'create'])
-            ->name('admin.categories.create');
-
-        Route::post('/categories', [CategoryController::class, 'store'])
-            ->name('admin.categories.store');
-
-        Route::get('/categories/{id}/edit', [CategoryController::class, 'edit'])
-            ->name('admin.categories.edit');
-
-        Route::put('/categories/{id}', [CategoryController::class, 'update'])
-            ->name('admin.categories.update');
-
-        Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])
-            ->name('admin.categories.destroy');
-
-
-        Route::get('/suppliers', [SupplierController::class, 'index'])
-            ->name('admin.suppliers.index');
-
-        Route::get('/suppliers/create', [SupplierController::class, 'create'])
-            ->name('admin.suppliers.create');
-
-        Route::post('/suppliers', [SupplierController::class, 'store'])
-            ->name('admin.suppliers.store');
-
-        Route::get('/suppliers/{id}/edit', [SupplierController::class, 'edit'])
-            ->name('admin.suppliers.edit');
-
-        Route::put('/suppliers/{id}', [SupplierController::class, 'update'])
-            ->name('admin.suppliers.update');
-
-        Route::delete('/suppliers/{id}', [SupplierController::class, 'destroy'])
-            ->name('admin.suppliers.destroy');
-
-        Route::get('/stock-history', [StockHistoryController::class, 'index'])
-            ->name('admin.stock-history.index');
-
-        Route::get('/admin/stock-opnames', [StockOpnameController::class, 'index'])
-            ->name('admin.stock-opnames.index');
-
-        Route::get('/admin/stock-opnames/create', [StockOpnameController::class, 'create'])
-            ->name('admin.stock-opnames.create');
-
-        Route::post('/admin/stock-opnames', [StockOpnameController::class, 'store'])
-            ->name('admin.stock-opnames.store');
-
-        Route::get('/admin/stock-opnames/{id}/edit', [StockOpnameController::class, 'edit'])
-            ->name('admin.stock-opnames.edit');
-
-        Route::put('/admin/stock-opnames/{id}', [StockOpnameController::class, 'update'])
-            ->name('admin.stock-opnames.update');
-
-        Route::delete('/admin/stock-opnames/{id}', [StockOpnameController::class, 'destroy'])
-            ->name('admin.stock-opnames.destroy');
-
-
-
-        Route::get('/users', [UserController::class, 'index'])
-            ->name('admin.users.index');
-
-        Route::get('/users/create', [UserController::class, 'create'])
-            ->name('admin.users.create');
-
-        Route::post('/users', [UserController::class, 'store'])
-            ->name('admin.users.store');
-
-        // Mengambil isi modal edit (AJAX)
-        Route::get('/users/{id}/edit', [UserController::class, 'edit'])
-            ->name('admin.users.edit');
-
-        // Update user
-        Route::put('/users/{id}', [UserController::class, 'update'])
-            ->name('admin.users.update');
-
-        // Hapus user
-        Route::delete('/users/{id}', [UserController::class, 'destroy'])
-            ->name('admin.users.destroy');
-
-        Route::get('/staff/reports/stock', [ManagerReportController::class, 'stockReport'])
-            ->name('admin.reports.stock');
-
-        Route::get('/staff/reports/stock-in', [ManagerReportController::class, 'stockInReport'])
-            ->name('admin.reports.stock-in');
-
-        Route::get('/staff/reports/stock-out', [ManagerReportController::class, 'stockOutReport'])
-            ->name('admin.reports.stock-out');
-
-        Route::get('/staff/reports/stock-opname', [ManagerReportController::class, 'stockOpnameReport'])
-            ->name('admin.reports.stock-opname');
-
-        Route::get(
-            '/reports/activity',[AdminActivityReportController::class, 'index'])
-            ->name('admin.report.activity');
-
-        // Laporan Stok Barang
-        Route::get('/admin/reports/stock/export', [ManagerReportController::class, 'exportStockReport'])
-            ->name('admin.reports.stock.export');
-
-        // Barang Masuk
-        Route::get('/admin/reports/stock-in/export', [ManagerReportController::class, 'exportStockInReport'])
-            ->name('admin.reports.stock-in.export');
-
-        // Barang Keluar
-        Route::get('/admin/reports/stock-out/export', [ManagerReportController::class, 'exportStockOutReport'])
-            ->name('admin.reports.stock-out.export');
-
-        // Stock Opname
-        Route::get('/admin/reports/stock-opname/export', [ManagerReportController::class, 'exportStockOpnameReport'])
-            ->name('admin.reports.stock-opname.export');
-
-        
-
-        
-    });
 
 /*
 |--------------------------------------------------------------------------
-| Staff Gudang
+| Kategori
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'role:Staff Gudang', 'prevent-back-history'])->group(function () {
+Route::get('/kategori', [KategoriController::class, 'index'])
+    ->name('kategori.index');
 
-    Route::get('/dashboard/staff', [StaffDashboardController::class, 'index'])
-        ->name('dashboard.staff');
+Route::get('/kategori/create', [KategoriController::class, 'create'])
+    ->name('kategori.create');
 
-    Route::get('/profile/staff', [ProfileStaffController::class, 'edit'])
-        ->name('staff.profile.edit');
+Route::post('/kategori', [KategoriController::class, 'store'])
+    ->name('kategori.store');
 
-    Route::put('/profile/staff', [ProfileStaffController::class, 'update'])
-        ->name('staff.profile.update');
+Route::get('/kategori/{kategori}', [KategoriController::class, 'show'])
+    ->name('kategori.show');
 
-    Route::get('/stock-confirmation', [StockConfirmationController::class, 'index'])
-        ->name('stock-confirmation.index');
+Route::get('/kategori/{kategori}/edit', [KategoriController::class, 'edit'])
+    ->name('kategori.edit');
 
-    Route::put('/stock-confirmation/{id}', [StockConfirmationController::class, 'confirm'])
-        ->name('stock-confirmation.confirm');
+Route::put('/kategori/{kategori}', [KategoriController::class, 'update'])
+    ->name('kategori.update');
+
+Route::delete('/kategori/{kategori}', [KategoriController::class, 'destroy'])
+    ->name('kategori.destroy');
 
 
-    Route::get('/stock-opnames', [StockOpnameController::class, 'index'])
-        ->name('staff.stock-opnames.index');
+/*
+|--------------------------------------------------------------------------
+| Fasilitas
+|--------------------------------------------------------------------------
+*/
 
-    Route::get('/stock-opnames/create', [StockOpnameController::class, 'create'])
-        ->name('staff.stock-opnames.create');
+Route::get('/fasilitas', [FasilitasController::class, 'index'])
+    ->name('fasilitas.index');
 
-    Route::post('/stock-opnames', [StockOpnameController::class, 'store'])
-        ->name('staff.stock-opnames.store');
+Route::get('/fasilitas/create', [FasilitasController::class, 'create'])
+    ->name('fasilitas.create');
 
-    Route::get('/stock-opnames/{id}/edit', [StockOpnameController::class, 'edit'])
-        ->name('staff.stock-opnames.edit');
+Route::post('/fasilitas', [FasilitasController::class, 'store'])
+    ->name('fasilitas.store');
 
-    Route::put('/stock-opnames/{id}', [StockOpnameController::class, 'update'])
-        ->name('staff.stock-opnames.update');
+Route::get('/fasilitas/{fasilitas}', [FasilitasController::class, 'show'])
+    ->name('fasilitas.show');
 
-    Route::delete('/stock-opnames/{id}', [StockOpnameController::class, 'destroy'])
-        ->name('staff.stock-opnames.destroy');
+Route::get('/fasilitas/{fasilitas}/edit', [FasilitasController::class, 'edit'])
+    ->name('fasilitas.edit');
 
+Route::put('/fasilitas/{fasilitas}', [FasilitasController::class, 'update'])
+    ->name('fasilitas.update');
+
+Route::delete('/fasilitas/{fasilitas}', [FasilitasController::class, 'destroy'])
+    ->name('fasilitas.destroy');
+
+
+/*
+|--------------------------------------------------------------------------
+| Aturan
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/aturan', [RuleController::class, 'index'])
+    ->name('aturan.index');
+
+Route::get('/aturan/create', [RuleController::class, 'create'])
+    ->name('aturan.create');
+
+Route::post('/aturan', [RuleController::class, 'store'])
+    ->name('aturan.store');
+
+Route::get('/aturan/{aturan}', [RuleController::class, 'show'])
+    ->name('aturan.show');
+
+Route::get('/aturan/{aturan}/edit', [RuleController::class, 'edit'])
+    ->name('aturan.edit');
+
+Route::put('/aturan/{aturan}', [RuleController::class, 'update'])
+    ->name('aturan.update');
+
+Route::delete('/aturan/{aturan}', [RuleController::class, 'destroy'])
+    ->name('aturan.destroy');
+
+
+/*
+|--------------------------------------------------------------------------
+| Artikel
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/artikel', [ArticleController::class, 'index'])
+    ->name('artikel.index');
+
+Route::get('/artikel/create', [ArticleController::class, 'create'])
+    ->name('artikel.create');
+
+Route::post('/artikel', [ArticleController::class, 'store'])
+    ->name('artikel.store');
+
+Route::get('/artikel/{artikel}', [ArticleController::class, 'show'])
+    ->name('artikel.show');
+
+Route::get('/artikel/{artikel}/edit', [ArticleController::class, 'edit'])
+    ->name('artikel.edit');
+
+Route::put('/artikel/{artikel}', [ArticleController::class, 'update'])
+    ->name('artikel.update');
+
+Route::delete('/artikel/{artikel}', [ArticleController::class, 'destroy'])
+    ->name('artikel.destroy');
+
+
+Route::get('/artikel_kategori', [ArticleCategoryController::class, 'index'])
+    ->name('artikel_kategori.index');
+
+Route::get('/artikel_kategori/create', [ArticleCategoryController::class, 'create'])
+    ->name('artikel_kategori.create');
+
+Route::post('/artikel_kategori', [ArticleCategoryController::class, 'store'])
+    ->name('artikel_kategori.store');
+
+Route::get('/artikel_kategori/{artikel_kategori}', [ArticleCategoryController::class, 'show'])
+    ->name('artikel_kategori.show');
+
+Route::get('/artikel_kategori/{artikel_kategori}/edit', [ArticleCategoryController::class, 'edit'])
+    ->name('artikel_kategori.edit');
+
+Route::put('/artikel_kategori/{artikel_kategori}', [ArticleCategoryController::class, 'update'])
+    ->name('artikel_kategori.update');
+
+Route::delete('/artikel_kategori/{artikel_kategori}', [ArticleCategoryController::class, 'destroy'])
+    ->name('artikel_kategori.destroy');
+
+
+/*
+|--------------------------------------------------------------------------
+| Banner
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/banner', [BannerController::class, 'index'])
+    ->name('banner.index');
+
+Route::get('/banner/create', [BannerController::class, 'create'])
+    ->name('banner.create');
+
+Route::post('/banner', [BannerController::class, 'store'])
+    ->name('banner.store');
+
+Route::get('/banner/{banner}', [BannerController::class, 'show'])
+    ->name('banner.show');
+
+Route::get('/banner/{banner}/edit', [BannerController::class, 'edit'])
+    ->name('banner.edit');
+
+Route::put('/banner/{banner}', [BannerController::class, 'update'])
+    ->name('banner.update');
+
+Route::delete('/banner/{banner}', [BannerController::class, 'destroy'])
+    ->name('banner.destroy');
+
+
+Route::get('/tentang', [SettingController::class, 'index'])
+    ->name('tentang.index');
+
+Route::get('/tentang/create', [SettingController::class, 'create'])
+    ->name('tentang.create');
+
+Route::post('/tentang', [SettingController::class, 'store'])
+    ->name('tentang.store');
+
+Route::get('/tentang/{tentang}', [SettingController::class, 'show'])
+    ->name('tentang.show');
+
+Route::get('/tentang/{tentang}/edit', [SettingController::class, 'edit'])
+    ->name('tentang.edit');
+
+Route::put('/tentang/{tentang}', [SettingController::class, 'update'])
+    ->name('tentang.update');
+
+Route::delete('/tentang/{tentang}', [SettingController::class, 'destroy'])
+    ->name('tentang.destroy');
+
+// ========================================
+// Galeries Landing Page
+// ========================================
+
+Route::get('/galeries', [GaleriesController::class, 'index'])
+    ->name('galeries.index');
+
+Route::get('/galeries/create', [GaleriesController::class, 'create'])
+    ->name('galeries.create');
+
+Route::post('/galeries', [GaleriesController::class, 'store'])
+    ->name('galeries.store');
+
+Route::get('/galeries/{id}/edit', [GaleriesController::class, 'edit'])
+    ->name('galeries.edit');
+
+Route::put('/galeries/{id}', [GaleriesController::class, 'update'])
+    ->name('galeries.update');
+
+Route::delete('/galeries/{id}', [GaleriesController::class, 'destroy'])
+    ->name('galeries.destroy');
+
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout');
+
+Route::get('/users', [UserController::class, 'index'])
+    ->name('users.index');
+
+Route::put('/users', [UserController::class, 'update'])
+        ->name('users.update');
 
 
 });

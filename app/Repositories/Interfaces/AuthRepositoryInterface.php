@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Interfaces;
 
-use App\Models\User;
-
 interface AuthRepositoryInterface
 {
-    public function findByEmail(string $email): ?User;
+    public function findByUsername($username);
+
+    public function create(array $data);
 }

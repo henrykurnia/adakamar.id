@@ -2,20 +2,43 @@
 
 namespace App\Services;
 
-use App\Repositories\Interfaces\DashboardRepositoryInterface;
+use App\Repositories\Interfaces\AkomodasiRepositoryInterface;
+use App\Repositories\Interfaces\KategoriRepositoryInterface;
+use App\Repositories\Interfaces\ArticleRepositoryInterface;
 
 class DashboardService
 {
-    protected $repository;
+    protected $akomodasiRepository;
+    protected $kategoriRepository;
+
+    protected $articleRepository;
 
     public function __construct(
-        DashboardRepositoryInterface $repository
+        AkomodasiRepositoryInterface $akomodasiRepository,
+        KategoriRepositoryInterface $kategoriRepository,
+        ArticleRepositoryInterface $articleRepository
     ) {
-        $this->repository = $repository;
+        $this->akomodasiRepository = $akomodasiRepository;
+        $this->kategoriRepository = $kategoriRepository;
+        $this->articleRepository = $articleRepository;
+
     }
 
     public function getDashboardData()
-    {
-        return $this->repository->getDashboardData();
-    }
+{
+    $kategori = $this->kategoriRepository->getAll();
+    $akomodasis = $this->akomodasiRepository->getAll();
+    $artikel = $this->articleRepository->getArtikelTerbaru();
+     $artikelTerbit = $this->articleRepository->getArtikelTerbit();
+    return [
+        'kategori' => $kategori,
+        'akomodasis' => $akomodasis,
+
+        'artikel' => $artikel,
+
+        'artikelTerbit' => $artikelTerbit,
+        'akomodasiTerbaru' => $akomodasis->sortByDesc('created_at')->take(5),
+        
+    ];
+}
 }

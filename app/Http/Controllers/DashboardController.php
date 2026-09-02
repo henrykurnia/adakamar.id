@@ -6,21 +6,19 @@ use App\Services\DashboardService;
 
 class DashboardController extends Controller
 {
-    protected $service;
+    protected $dashboardService;
 
-    public function __construct(
-        DashboardService $service
-    ) {
-        $this->service = $service;
+    public function __construct(DashboardService $dashboardService)
+    {
+        $this->dashboardService = $dashboardService;
     }
 
     public function index()
     {
-        $data = $this->service->getDashboardData();
+        
 
-        return view(
-            'example.index',
-            $data
-        );
+        $data = $this->dashboardService->getDashboardData();
+
+        return view('example.content._index', $data);
     }
 }
