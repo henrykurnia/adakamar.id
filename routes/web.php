@@ -11,6 +11,7 @@ use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\SettingController;
 
 
 
@@ -347,4 +348,31 @@ Route::delete(
 
 
 
+Route::get(
+    '/pengaturan',
+    [SettingController::class, 'index']
+)->name('pengaturan.index');
+
+Route::post(
+    '/pengaturan',
+    [SettingController::class, 'store']
+)->name('pengaturan.store');
+
+Route::get(
+    '/pengaturan/{setting}/edit',
+    [SettingController::class, 'edit']
+)->name('pengaturan.edit');
+
+Route::put(
+    '/pengaturan/{setting}',
+    [SettingController::class, 'update']
+)->name('pengaturan.update');
+
+Route::delete(
+    '/pengaturan/{setting}',
+    [SettingController::class, 'destroy']
+)->name('pengaturan.destroy');
+
 });
+
+
