@@ -37,10 +37,11 @@ class UserController extends Controller
                 Rule::unique('users', 'username')->ignore($user->id),
             ],
 
-            'name' => [
-                'required',
-                'string',
-                'max:255',
+            'email' => [
+               'required',
+               'string',
+               'max:255', 
+               Rule::unique('users', 'email')->ignore($user->id),
             ],
 
             'password' => [
@@ -52,7 +53,7 @@ class UserController extends Controller
 
         // Update username dan nama
         $user->username = $validated['username'];
-        $user->name = $validated['name'];
+        $user->email = $validated['email'];
 
         // Update password hanya jika diisi
         if (!empty($validated['password'])) {

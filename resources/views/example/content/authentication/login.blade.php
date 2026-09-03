@@ -71,9 +71,18 @@
             Login
         </button>
 
-    </form>
+<div class="text-center mt-2 ">
+    <a
+        href="{{ route('password.request') }}"
+        class="text-sm text-primary-600 hover:underline"
+    >
+        Lupa Password?
+    </a>
+</div>      
 
 </div>
+
+
 </div>
 
 @endsection
