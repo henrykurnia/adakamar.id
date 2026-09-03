@@ -10,6 +10,8 @@ use App\Http\Controllers\AccommodationController;
 use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\BannerController;
+
 
 
 /*
@@ -310,6 +312,39 @@ Route::delete(
     [GalleryController::class, 'destroy']
 )->name('galleries.destroy');
 
-    
+
+
+/*
+|--------------------------------------------------------------------------
+| Banner
+|--------------------------------------------------------------------------
+*/ 
+
+Route::get(
+    '/banners',
+    [BannerController::class, 'index']
+)->name('banners.index');
+
+Route::post(
+    '/banners',
+    [BannerController::class, 'store']
+)->name('banners.store');
+
+Route::get(
+    '/banners/{id}/edit',
+    [BannerController::class, 'edit']
+)->name('banners.edit');
+
+Route::put(
+    '/banners/{id}',
+    [BannerController::class, 'update']
+)->name('banners.update');
+
+Route::delete(
+    '/banners/{id}',
+    [BannerController::class, 'destroy']
+)->name('banners.destroy');
+
+
 
 });

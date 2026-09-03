@@ -17,11 +17,11 @@
               clip-rule="evenodd"></path>
           </svg>
         </button>
-      <a href="#" class="flex ml-2 md:mr-24 items-center">
-        <img src="{{ asset('landingpage/home.png') }}" class="h-8 mr-3" alt="adakamar.id Logo" />
-        <span
-          class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-[#E60000] dark:text-[#FF6B6B]">adakamar.id</span>
-      </a>
+        <a href="#" class="flex ml-2 md:mr-24 items-center">
+          <img src="{{ asset('landingpage/home.png') }}" class="h-8 mr-3" alt="adakamar.id Logo" />
+          <span
+            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-[#E60000] dark:text-[#FF6B6B]">adakamar.id</span>
+        </a>
 
       </div>
       <div class="flex items-center">
